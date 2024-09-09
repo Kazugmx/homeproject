@@ -3,33 +3,61 @@ import { useEffect, useState } from "react";
 import type { Transaction } from "@prisma/client";
 import Link from "next/link";
 
-interface Summary {
-	amount: number;
-}
-
-const Home: React.FC = () => {
+const Page = () => {
 	const [transactions, setTransactions] = useState<Transaction[]>([]);
-	const [summary, setSum] = useState<Summary>({ amount: 0 });
 	const [loading, setLoading] = useState<boolean>(true);
+	const [selectedTransactions, setSelectedTransactions] = useState<Set<number>>(
+		new Set(),
+	);
+
 	useEffect(() => {
 		setLoading(true);
 		fetch("/api/transactions")
 			.then((res) => res.json())
-			.then((data) => setTransactions(data.transactions));
-		fetch("/api/transactions?type=sum")
-			.then((res) => res.json())
-			.then((data) => setSum(data.sum._sum))
+			.then((data) => setTransactions(data.transactions))
 			.finally(() => setLoading(false));
 	}, []);
-	if (loading) {
+
+	const handleCheckboxChange = (id: number) => {
+		setSelectedTransactions((prevSelected) => {
+			const newSelected = new Set(prevSelected);
+			if (newSelected.has(id)) {
+				newSelected.delete(id);
+			} else {
+				newSelected.add(id);
+			}
+			return newSelected;
+		});
+	};
+
+	const handleDeleteSelected = () => {
+		const idsToDelete = Array.from(selectedTransactions);
+		fetch("/api/trans-config", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ type: "delete", ID: idsToDelete }),
+		})
+			.then((res) => res.json())
+			.catch((e) => {
+				console.error(e);
+				alert("Error deleting transactions");
+			});
 		return (
-			<div className="flex max-h-screen flex-col items-center justify-between p-24 ">
-				Loading...
+			<div>
+				<ul>deleted.</ul>
+				<Link href="/transactions">Go back to transactions</Link>
 			</div>
 		);
+	};
+
+	if (loading) {
+		return <div>Loading...</div>;
 	}
+
 	return (
-		<div className="flex max-h-screen flex-col items-center justify-between p-24 ">
+		<div>
 			<h1>Transactions</h1>
 			<table className="table-auto border-black border-2 border-separate border-spacing-1">
 				<thead>
@@ -38,6 +66,7 @@ const Home: React.FC = () => {
 						<th>Amount</th>
 						<th>Date</th>
 						<th>Description</th>
+						<th>Delete?</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -49,34 +78,28 @@ const Home: React.FC = () => {
 								{new Date(transaction.date).toLocaleDateString("en-CA")}
 							</td>
 							<td className="border text-wrap">{transaction.description}</td>
+							<td className="border">
+								<input
+									type="checkbox"
+									checked={selectedTransactions.has(transaction.id)}
+									onChange={() => handleCheckboxChange(transaction.id)}
+								/>
+							</td>
 						</tr>
 					))}
-					<tr>
-						<td>合計</td>
-						<td>{summary.amount}</td>
-					</tr>
 				</tbody>
 			</table>
 			<div className="flex-auto space-x-4 border-spacing-3">
-				<Link
-					href="/transaction"
-					className="p-2 mt-5 bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded text-center"
-				>
-					記録を追加する
-				</Link>
-
 				<button
 					type="button"
-					onClick={() => {
-						window.location.reload();
-					}}
-					className="p-2 mt-5 bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded text-center"
+					onClick={handleDeleteSelected}
+					className="p-2 mt-5 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
 				>
-					再読み込みする
+					削除する
 				</button>
 			</div>
 		</div>
 	);
 };
 
-export default Home;
+export default Page;
