@@ -9,7 +9,8 @@ interface TransactionForm {
 	date: string;
 }
 
-export default function Home(props) {
+
+const Home = () => {
 	const [transactions, setTransactions] = useState<Transaction[]>([]);
 	const [transactionForm, setTransactionForm] = useState<TransactionForm>({
 		description: "",
@@ -117,3 +118,4 @@ export default function Home(props) {
 		</main>
 	);
 }
+export default Home;

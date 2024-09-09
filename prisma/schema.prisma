@@ -16,7 +16,7 @@ datasource db {
 model Transaction {
   id        Int      @id @default(autoincrement()) @map("_id")
   description String
-  amount     Float
+  amount     Int
   category   String
   date       DateTime
 }
