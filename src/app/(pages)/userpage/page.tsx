@@ -1,6 +1,6 @@
 'use client'
 import { useState } from "react";
-import { Transaction } from "@prisma/client";
+import type { Transaction } from "@prisma/client";
 
 interface TransactionForm {
 	description: string;
@@ -9,7 +9,7 @@ interface TransactionForm {
 	date: string;
 }
 
-export default function Home() {
+export default function Home(props) {
 	const [transactions, setTransactions] = useState<Transaction[]>([]);
 	const [transactionForm, setTransactionForm] = useState<TransactionForm>({
 		description: "",
