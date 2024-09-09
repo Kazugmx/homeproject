@@ -1,6 +1,10 @@
-"use client";
 const Home = () => {
-	return <div className="text-[50px]">Nextjs超初心者入門</div>;
+	return (
+	<div>
+		<h1>Home</h1>
+		<p>Welcome to the home page!</p>
+	</div>
+	);
 };
 
 export default Home;

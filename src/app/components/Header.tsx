@@ -4,21 +4,16 @@ const Header = () => {
 	return (
 		<header className="bg-black py-5">
 			<div className="container mx-auto">
-				<h1 className="text-white">Nextjs超初心者入門</h1>
+				<h1 className="text-white">家計簿アプリ</h1>
 				<ul className="flex ">
 					<li className="mr-5 m-3">
-						<Link href="/" className="text-white">
-							Home
+						<Link href="/userpage" className="text-white">
+							Userpage
 						</Link>
 					</li>
 					<li className="mr-5 m-3">
-						<Link href="/about" className="text-white">
-							About
-						</Link>
-					</li>
-					<li className="mr-5 m-3">
-						<Link href="/blog" className="text-white">
-							Blog
+						<Link href="/top" className="text-white">
+							top
 						</Link>
 					</li>
 				</ul>
