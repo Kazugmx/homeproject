@@ -3,11 +3,20 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export async function GET() {
+export async function GET(req: NextRequest) {
 
+    const searchParams = req.nextUrl.searchParams;
+    const type = searchParams.get("type");
+    if (type === "sum") {
+        const sum = await prisma.transaction.aggregate({
+            _sum: {
+                amount: true,
+            },
+        });
+        return NextResponse.json({ sum }, { status: 201 });
+    }
     const transactions = await prisma.transaction.findMany();
-
-    return NextResponse.json({transactions}, { status: 201 });
+    return NextResponse.json({ transactions }, { status: 201 });
 }
 
 // POSTメソッド
