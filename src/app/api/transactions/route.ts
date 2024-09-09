@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
 
 // POSTメソッド
 export async function POST(req: NextRequest) {
-    let { description, amount, category, date } = await req.json();
+    let { description, amount, category, date} = await req.json();
     amount = Number(amount);
     const newTransaction = await prisma.transaction.create({
         data: {

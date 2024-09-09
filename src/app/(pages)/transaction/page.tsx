@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Link from "next/link";
 import { useState } from "react";
 import type { Transaction } from "@prisma/client";
@@ -20,7 +20,7 @@ const Home = () => {
 	});
 
 	const handleInputChange = (
-		event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+		event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
 	) => {
 		const { name, value } = event.target;
 		setTransactionForm({ ...transactionForm, [name]: value });
@@ -115,5 +115,5 @@ const Home = () => {
 			</form>
 		</main>
 	);
-}
+};
 export default Home;

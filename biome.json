@@ -1,31 +1,26 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
-	"organizeImports": {
-		"enabled": true
-	},
-	"formatter": {
-		"enabled": true,
-		"ignore": [".next", "node_modules"],
-		"indentStyle": "space"
-	},
-	"javascript": {
-		"formatter": {
-			"quoteStyle": "single"
-		}
-	},
-	"linter": {
-		"enabled": true,
-		"ignore": [".next", "node_modules"],
-		"rules": {
-			"recommended": true,
-			"correctness": {
-				"useHookAtTopLevel": "error"
-			},
-			"nursery": {},
-			"style": {
-				"noNegationElse": "error",
-				"useBlockStatements": "error"
-			}
-		}
-	}
+  "$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "formatter": {
+    "enabled": true,
+    "ignore": [".next", "node_modules"],
+    "indentStyle": "tab"
+  },
+  "javascript": {},
+  "linter": {
+    "enabled": true,
+    "ignore": [".next", "node_modules"],
+    "rules": {
+      "recommended": true,
+      "correctness": {
+        "noUnusedImports": "warn",
+        "useHookAtTopLevel": "error",
+        "noUnusedVariables": "warn"
+      }
+    }
+  }
 }
