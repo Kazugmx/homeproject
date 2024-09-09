@@ -1,4 +1,5 @@
 'use client'
+import Link from "next/link";
 import { useState } from "react";
 import type { Transaction } from "@prisma/client";
 
@@ -8,7 +9,6 @@ interface TransactionForm {
 	category: string;
 	date: string;
 }
-
 
 const Home = () => {
 	const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -55,7 +55,6 @@ const Home = () => {
 
 	return (
 		<main className="flex min-h-screen flex-col items-center justify-between p-24">
-			<h1 className="text-3xl font-bold underline">家計簿アプリ</h1>
 			<form onSubmit={handleSubmit} className="flex flex-col gap-4">
 				<div>
 					<label htmlFor="description">説明:</label>
@@ -107,14 +106,13 @@ const Home = () => {
 				>
 					追加
 				</button>
+				<Link
+					href="/balance"
+					className="bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded text-center"
+				>
+					残高を表示する
+				</Link>
 			</form>
-			<ul className="mt-4">
-				{transactions.map((transaction) => (
-					<li key={transaction.id} className="border rounded-md p-2 mb-2">
-						{transaction.description} - {transaction.amount}
-					</li>
-				))}
-			</ul>
 		</main>
 	);
 }

@@ -12,7 +12,12 @@ const Header = () => {
 				<ul className="flex ">
 					<li className="mr-5 m-3 outline-offset-2 outline-cyan-700">
 						<Link href="/transaction" className="text-white ">
-							Add transaction
+							記録を追加
+						</Link>
+					</li>
+					<li className="m-3 outline-offset-2 outline-cyan-700">
+						<Link href="/balance" className="text-white ">
+							記録を見る
 						</Link>
 					</li>
 				</ul>
