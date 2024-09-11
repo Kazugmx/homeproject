@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import type { Transaction } from "@prisma/client";
 import Link from "next/link";
 
+
 const Page = () => {
 	const [transactions, setTransactions] = useState<Transaction[]>([]);
 	const [loading, setLoading] = useState<boolean>(true);
@@ -32,7 +33,7 @@ const Page = () => {
 
 	const handleDeleteSelected = () => {
 		const idsToDelete = Array.from(selectedTransactions);
-		fetch("/api/trans-config", {
+		fetch("/api/transactions/control", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
