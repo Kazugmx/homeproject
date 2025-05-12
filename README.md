@@ -1,4 +1,4 @@
-これは学校の家庭科の作品として出すアプリだよ
+これは学校の家庭科の作品として出す予定だった家計簿のwebアプリだよ
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
